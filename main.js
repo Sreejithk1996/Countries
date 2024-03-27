@@ -32,13 +32,13 @@ async function runProcess() {
         countryName.textContent = country.name;
 
         const population = document.createElement('span');
-        population.innerHTML = `<strong>Population: </strong>${country.population}<br`;
+        population.innerHTML = `<strong>Population: </strong>${country.population}<br>`;
 
         const region = document.createElement('span');
-        population.innerHTML = `<strong>Region: </strong>${country.region}<br`;
+        region.innerHTML = `<strong>Region: </strong>${country.region}<br>`;
 
         const capital = document.createElement('span');
-        population.innerHTML = `<strong>Capital: </strong>${country.capital}<br`;
+        capital.innerHTML = `<strong>Capital: </strong>${country.capital}`;
 
 
         countryDetails.appendChild(countryName)
