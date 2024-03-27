@@ -1,11 +1,18 @@
-const main = document.getElementById("main")
-
+const main = document.getElementById("main");
+const loading = document.querySelector(".loading");
+const theme = document.getElementById("theme");
+const root = document.querySelector(":root");
+const moon = document.getElementById("moon");
+const searchIcon = document.getElementById("search-icon")
+const color = document.getElementById("color");
 countries = [];
+
 async function runProcess() {
     try{
       const response= await fetch("https://restcountries.com/v2/all")
       const data = await response.json();
       countries = data;
+      loading.innerHTML="";
       countries.forEach(country => {
         
         const countryContainer = document.createElement('div');
@@ -25,10 +32,10 @@ async function runProcess() {
         countryName.textContent = country.name;
 
         const population = document.createElement('span');
-        population.innerHTML = `<stron>Population: </strong>${country.population}<br`;
+        population.innerHTML = `<strong>Population: </strong>${country.population}<br`;
 
         const region = document.createElement('span');
-        population.innerHTML = `<stron>Region: </strong>${country.region}<br`;
+        population.innerHTML = `<strong>Region: </strong>${country.region}<br`;
 
         const capital = document.createElement('span');
         population.innerHTML = `<strong>Capital: </strong>${country.capital}<br`;
@@ -45,6 +52,8 @@ async function runProcess() {
         main.appendChild(countryContainer)
 
       });
+
+      
     }
 
     catch(error){
@@ -53,3 +62,36 @@ async function runProcess() {
 }
 
 runProcess(); 
+
+let mode = localStorage.getItem("mode");
+
+theme.addEventListener("click" , ()=>{
+    if(mode==="dark"){
+        localStorage.setItem("mode","light");
+    }
+    else {
+        localStorage.setItem("mode","dark");
+    }
+    mode=localStorage.getItem("mode");
+    changeTheme();
+})
+
+function changeTheme() {
+    if(mode==="dark"){
+        root.style.setProperty("--bg","#202c37");
+        root.style.setProperty("--text","#ffff");
+        root.style.setProperty("--lbg","#2b3945");
+        moon.src="/icons/icons/moon-regular.svg";
+        searchIcon.src="/icons/icons/search-regular.svg";
+        color.textContent="Light Mode"
+    }
+    else{
+        root.style.setProperty("--bg","#fafafa");
+        root.style.setProperty("--text","#111517");
+        root.style.setProperty("--lbg","#ffff");
+        moon.src="/icons/icons/moon-solid.svg";
+        searchIcon.src="/icons/icons/search-solid.svg";
+        color.textContent="Dark Mode"
+    }
+}
+changeTheme();
